@@ -4,8 +4,8 @@ Helps you track your events, for example weddings, birthday parties and concerts
 __Progress:__ 0%
 
 ## Next things to be done:
-- Get rid of the blazor template stuff (counter, fetchdata, anything else not needed)
-- Design the database
+- <strike>Get rid of the blazor template stuff (counter, fetchdata, anything else not needed)</strike>
+- <strike>Design the database</strike>
 - Make sure you can optionally store the user's city
 - Make a component for event creation (not necessarily pretty for now)
 - Make a component for event details
