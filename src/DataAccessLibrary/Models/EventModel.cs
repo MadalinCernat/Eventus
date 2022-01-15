@@ -18,5 +18,8 @@ namespace DataAccessLibrary.Models
         public decimal EntranceTax { get; set; }
         public string CreatedByUserId { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsOver { get; set; }
+        public string? Url { get; set; }
     }
 }

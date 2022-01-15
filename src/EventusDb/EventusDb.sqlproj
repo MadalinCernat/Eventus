@@ -72,4 +72,7 @@
     <Build Include="dbo\Tables\City.sql" />
     <Build Include="dbo\StoredProcedures\spEvent_GetAll.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="EventusDb.refactorlog" />
+  </ItemGroup>
 </Project>

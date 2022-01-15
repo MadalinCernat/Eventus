@@ -1,5 +1,7 @@
 ﻿CREATE TABLE [dbo].[Place]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Name] NVARCHAR(100) NOT NULL
+    [Name] NVARCHAR(100) NOT NULL, 
+    [CityId] INT NOT NULL, 
+    CONSTRAINT [FK_Place_City] FOREIGN KEY (CityId) REFERENCES [dbo].[City](Id)
 )
