@@ -1,14 +1,7 @@
 # Eventus
 Blazor web application with MSSQL database.
 Helps you track your events, for example weddings, birthday parties and concerts.
-__Progress:__ 0%
-
-## Next things to be done:
-- <strike>Get rid of the blazor template stuff (counter, fetchdata, anything else not needed)</strike>
-- <strike>Design the database</strike>
-- <strike>Make sure you can optionally store the user's city</strike>
-- Make a component for event creation (not necessarily pretty for now)
-- Make a component for event details
+__Progress:__ 10%
 
 ## Functionalities:
 ### Minimum:
