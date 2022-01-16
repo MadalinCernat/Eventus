@@ -61,7 +61,7 @@
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\Views" />
     <Folder Include="Scripts" />
-    <Folder Include="Publish Profiles" />
+    <Folder Include="PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Event.sql" />
@@ -79,9 +79,6 @@
     <RefactorLog Include="EventusDb.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Publish Profiles\EventusDb.publish.xml" />
+    <None Include="PublishProfiles\EventusDb.publish.xml" />
   </ItemGroup>
 </Project>
