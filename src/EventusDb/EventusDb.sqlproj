@@ -60,6 +60,8 @@
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\Views" />
+    <Folder Include="Scripts" />
+    <Folder Include="Publish Profiles" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Event.sql" />
@@ -71,8 +73,15 @@
     <Build Include="dbo\Tables\UserCity.sql" />
     <Build Include="dbo\Tables\City.sql" />
     <Build Include="dbo\StoredProcedures\spEvent_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\spEvent_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Publish Profiles\EventusDb.publish.xml" />
   </ItemGroup>
 </Project>
