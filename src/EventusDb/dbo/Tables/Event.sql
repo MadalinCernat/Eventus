@@ -12,5 +12,6 @@
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsOver] BIT NOT NULL DEFAULT 0, 
     [Url] NVARCHAR(1000) NULL, 
+    [AllowRequests] BIT NOT NULL DEFAULT 1, 
     CONSTRAINT [FK_Event_Place] FOREIGN KEY (PlaceId) REFERENCES [dbo].[Place](Id)
 )
