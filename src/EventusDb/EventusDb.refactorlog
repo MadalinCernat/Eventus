@@ -14,4 +14,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="StartDate" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="0ca79f2f-5ec5-428c-890e-bac33d03ed94" ChangeDateTime="01/17/2022 12:05:57">
+    <Property Name="ElementName" Value="[dbo].[Event].[StartDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Event]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StartDateTime" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f95eb790-25f3-4649-9c64-35e0068c6dcf" ChangeDateTime="01/17/2022 12:06:01">
+    <Property Name="ElementName" Value="[dbo].[Event].[EndDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Event]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EndDateTime" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="200241e3-572e-47eb-b391-86a1ef3ca193" ChangeDateTime="01/17/2022 12:06:05">
+    <Property Name="ElementName" Value="[dbo].[Event].[EntranceTax]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Event]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EntranceFee" />
+  </Operation>
 </Operations>
