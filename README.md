@@ -1,6 +1,6 @@
 # Eventus
-Blazor web application with MSSQL database.
-Helps you track your events, for example weddings, birthday parties and concerts.
+This is a Blazor Server web application connected to a MSSQL database, built as part of Tim Corey's C# Challenge.
+It helps you track your events, for example weddings, birthday parties and concerts.
 __Progress:__ 10%
 
 ## Functionalities:
@@ -24,12 +24,4 @@ __Progress:__ 10%
 -  Ticket generator.
 -  Online payment (Demo)
 
-## Contribution
-Anyone is welcome to contribute to this project.
-1. Fork the repository.
-2. Create a branch for your feature and write the code.
-3. Update your forked master branch.
-4. Merge your master branch to the feature branch.
-5. Make sure the feature still works.
-6. Merge the feature branch to your master branch.
-7. Create a pull request. Please provide a good explaination on what you did.
+### Special thanks go to Tim Corey and everyone who wants to contribute.
