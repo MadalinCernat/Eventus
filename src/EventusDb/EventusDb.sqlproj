@@ -74,6 +74,7 @@
     <Build Include="dbo\Tables\City.sql" />
     <Build Include="dbo\StoredProcedures\spEvent_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\spEvent_GetById.sql" />
+    <Build Include="dbo\StoredProcedures\spEvent_GetAllCreatedByUserId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />
