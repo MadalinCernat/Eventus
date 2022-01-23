@@ -79,6 +79,7 @@
     <Build Include="dbo\StoredProcedures\spInvitation_GetAllSentByUserId.sql" />
     <Build Include="dbo\StoredProcedures\spRequest_GetRequestsForEventId.sql" />
     <Build Include="dbo\StoredProcedures\spRequest_GetRequestsSentByUserId.sql" />
+    <Build Include="dbo\StoredProcedures\spEvent_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />

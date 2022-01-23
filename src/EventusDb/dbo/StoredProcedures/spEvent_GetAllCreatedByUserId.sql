@@ -5,8 +5,8 @@ AS
 begin
 	set nocount on;
 
-	select [Id], [Title], [Description], [PlaceId], [StartDate], [EndDate], [EntranceTax], [CreatedByUserId],
-		[DateCreated], [IsActive], [IsOver], [Url]
+	select [Id], [Title], [Description], [PlaceId], [StartDateTime], [EndDateTime], [EntranceFee], [CreatedByUserId],
+		[DateCreated], [IsActive], [IsOver], [Url], [AllowRequests]
 	from dbo.[Event]
 	where CreatedByUserId = @createdByUserId;
 end
