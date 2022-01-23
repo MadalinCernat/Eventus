@@ -82,6 +82,7 @@
     <Build Include="dbo\StoredProcedures\spEvent_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spInvitation_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spRequest_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spCity_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />
