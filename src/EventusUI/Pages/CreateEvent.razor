@@ -1,37 +1,76 @@
 ﻿@page "/createevent"
+@inject ISqlCrud _db;
 
 <h3>Create Event</h3>
 
 <EditForm OnValidSubmit="InsertEvent" Model="@newEvent">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <InputText id="title" @bind-Value="newEvent.Title" class="form-control"/>
+            </div>
 
-    <InputText @bind-Value="newEvent.Title"/>
-    <InputText @bind-Value="newEvent.Description"/>
-    
-    <InputDate @bind-Value="newEvent.StartDateTime"/>
-    <InputDate @bind-Value="newEvent.EndDateTime"/>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <InputText id="description" @bind-Value="newEvent.Description" class="form-control"/>
+            </div>
 
-    // Dropdown for selecting place
+            <div class="form-group">
+                <label for="startdatetime">Start Date & Time</label>
+                <InputDate id="startdatetime" @bind-Value="newEvent.StartDateTime" class="form-control"/>
+            </div>
 
-    <InputNumber @bind-Value="newEvent.EntranceFee"/>
-    <InputText @bind-Value="newEvent.Url"/>
+            <div class="form-group">
+                <label for="enddatetime">End Date & Time</label>
+                <InputDate id="enddatetime" @bind-Value="newEvent.EndDateTime" class="form-control"/>
+            </div>
 
+            <!-- Dropdown for selecting place -->
+            <div class="form-group">
+                <select @bind="newEvent.PlaceId">
+                    @foreach(var place in placesAvailable)
+                    {
+                        <option value="@place.Id">@place.Name</option>
+                    }
+            </select>
+            </div>
+
+            <div class="form-group">
+                <label for="entrancefee">Entrance Fee</label>
+                <InputNumber id="entrancefee" @bind-Value="newEvent.EntranceFee" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="url">Url</label>
+                <InputText id="url" @bind-Value="newEvent.Url" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-outline-dark" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
 </EditForm>
 
 
 @code {
     private EventUIModel newEvent;
-    private List<PlaceModel> placesAvailable;
-    public void InsertEvent()
+    private List<PlaceModel> placesAvailable = new List<PlaceModel>();
+    public async Task InsertEvent()
     {
         // Create database model for event
-
+        
         // Insert event
     }
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        //Populate placesAvailable
-        return base.OnInitializedAsync();
+        newEvent = new EventUIModel();
+        // Get all places available from the db
+        placesAvailable = await _db.GetAllPlaces();
+        // Populate placesAvailable
+
     }
 }

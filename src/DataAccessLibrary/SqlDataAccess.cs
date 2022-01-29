@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,11 +12,11 @@ namespace DataAccessLibrary
 {
     public class SqlDataAccess : ISqlDataAccess
     {
-        private readonly string _connectionString;
+        public string ConnectionString { get; set; }
 
-        public SqlDataAccess(string connectionString)
+        public SqlDataAccess(IConfiguration config)
         {
-            _connectionString = connectionString;
+            ConnectionString = config.GetConnectionString("Default");
         }
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters, bool isStoredProcedure = false)
         {
@@ -25,7 +26,7 @@ namespace DataAccessLibrary
             {
                 commandType = CommandType.StoredProcedure;
             }
-            using (IDbConnection conn = new SqlConnection(_connectionString))
+            using (IDbConnection conn = new SqlConnection(ConnectionString))
             {
                 output = (await conn.QueryAsync<T>(sql, parameters, commandType: commandType)).ToList();
             }
@@ -39,7 +40,7 @@ namespace DataAccessLibrary
             {
                 commandType = CommandType.StoredProcedure;
             }
-            using (IDbConnection conn = new SqlConnection(_connectionString))
+            using (IDbConnection conn = new SqlConnection(ConnectionString))
             {
                 await conn.ExecuteAsync(sql, parameters, commandType: commandType);
             }
