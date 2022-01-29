@@ -87,6 +87,7 @@
     <Build Include="dbo\StoredProcedures\spPlace_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spEventUser_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spComment_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spPlace_GetAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />
