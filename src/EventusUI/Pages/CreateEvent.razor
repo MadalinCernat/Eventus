@@ -1,0 +1,37 @@
+﻿@page "/createevent"
+
+<h3>Create Event</h3>
+
+<EditForm OnValidSubmit="InsertEvent" Model="@newEvent">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <InputText @bind-Value="newEvent.Title"/>
+    <InputText @bind-Value="newEvent.Description"/>
+    
+    <InputDate @bind-Value="newEvent.StartDateTime"/>
+    <InputDate @bind-Value="newEvent.EndDateTime"/>
+
+    // Dropdown for selecting place
+
+    <InputNumber @bind-Value="newEvent.EntranceFee"/>
+    <InputText @bind-Value="newEvent.Url"/>
+
+</EditForm>
+
+
+@code {
+    private EventUIModel newEvent;
+    private List<PlaceModel> placesAvailable;
+    public void InsertEvent()
+    {
+        // Create database model for event
+
+        // Insert event
+    }
+    protected override Task OnInitializedAsync()
+    {
+        //Populate placesAvailable
+        return base.OnInitializedAsync();
+    }
+}

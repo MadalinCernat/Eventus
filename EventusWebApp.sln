@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventusUI", "src\EventusUI\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EventusDb", "src\EventusDb\EventusDb.sqlproj", "{A577172C-85D1-45A7-BBBE-F457323D6F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "src\DataAccessLibrary\DataAccessLibrary.csproj", "{08C7B163-598A-4396-B96F-E52323D29A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "src\DataAccessLibrary\DataAccessLibrary.csproj", "{08C7B163-598A-4396-B96F-E52323D29A86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
