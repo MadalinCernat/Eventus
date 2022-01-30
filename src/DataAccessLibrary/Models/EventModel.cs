@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
         public PlaceModel Place { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
@@ -20,6 +20,6 @@ namespace DataAccessLibrary.Models
         public DateTime DateCreated { get; set; }
         public bool IsActive { get; set; }
         public bool IsOver { get; set; }
-        public string? Url { get; set; }
+        public string Url { get; set; }
     }
 }

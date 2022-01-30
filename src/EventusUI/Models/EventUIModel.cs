@@ -8,7 +8,10 @@ namespace EventusUI.Models
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        public string PlaceId { get; set; }
+
+        [Required]
+        [Range(1, double.MaxValue, ErrorMessage = "Please choose a place for your event.")]
+        public int PlaceId { get; set; }
         public string PlaceName { get; set; }
 
         [Required]
@@ -28,6 +31,6 @@ namespace EventusUI.Models
         public bool IsOver { get; set; }
 
         [Url]
-        public string? Url { get; set; }
+        public string Url { get; set; }
     }
 }

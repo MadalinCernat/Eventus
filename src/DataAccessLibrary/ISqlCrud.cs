@@ -6,5 +6,7 @@ namespace DataAccessLibrary
     {
         Task<List<EventModel>> GetAllEvents();
         Task<List<PlaceModel>> GetAllPlaces();
+        Task<PlaceModel> GetPlaceById(int id);
+        Task InsertEvent(EventModel model);
     }
 }

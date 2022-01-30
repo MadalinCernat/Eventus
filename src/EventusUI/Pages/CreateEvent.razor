@@ -1,54 +1,62 @@
 ﻿@page "/createevent"
+@using System.Security.Claims
 @inject ISqlCrud _db;
+@inject IHttpContextAccessor _context
 
-<h3>Create Event</h3>
+<h3 class="text-center">Create Event</h3>
+<hr class="mb-5"/>
 
 <EditForm OnValidSubmit="InsertEvent" Model="@newEvent">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="title">Title</label>
-                <InputText id="title" @bind-Value="newEvent.Title" class="form-control"/>
+                <InputText id="title" @bind-Value="newEvent.Title" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <InputText id="description" @bind-Value="newEvent.Description" class="form-control"/>
+                <InputText id="description" @bind-Value="newEvent.Description" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="startdatetime">Start Date & Time</label>
-                <InputDate id="startdatetime" @bind-Value="newEvent.StartDateTime" class="form-control"/>
+                <InputDate id="startdatetime" @bind-Value="newEvent.StartDateTime" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="enddatetime">End Date & Time</label>
-                <InputDate id="enddatetime" @bind-Value="newEvent.EndDateTime" class="form-control"/>
+                <InputDate id="enddatetime" @bind-Value="newEvent.EndDateTime" class="form-control" />
             </div>
-
-            <!-- Dropdown for selecting place -->
-            <div class="form-group">
-                <select @bind="newEvent.PlaceId">
-                    @foreach(var place in placesAvailable)
-                    {
-                        <option value="@place.Id">@place.Name</option>
-                    }
-            </select>
-            </div>
+        </div>
+        <div class="col-md-6">
 
             <div class="form-group">
                 <label for="entrancefee">Entrance Fee</label>
-                <InputNumber id="entrancefee" @bind-Value="newEvent.EntranceFee" class="form-control"/>
+                <InputNumber id="entrancefee" @bind-Value="newEvent.EntranceFee" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="url">Url</label>
-                <InputText id="url" @bind-Value="newEvent.Url" class="form-control"/>
+                <InputText id="url" @bind-Value="newEvent.Url" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <!-- Dropdown for selecting place -->
+            <div class="form-group mt-3">
+                <select @bind="newEvent.PlaceId">
+                    <option value=0 disabled selected hidden>
+                        [Select Place]
+                    </option>
+                    @foreach (var place in placesAvailable)
+                    {
+                        <option value="@place.Id">@place.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mt-3 text-center">
                 <button class="btn btn-outline-dark" type="submit">Submit</button>
             </div>
         </div>
@@ -61,16 +69,31 @@
     private List<PlaceModel> placesAvailable = new List<PlaceModel>();
     public async Task InsertEvent()
     {
+        var place = await _db.GetPlaceById(newEvent.PlaceId);
         // Create database model for event
-        
+        var dbEvent = new EventModel
+            {
+                Title = newEvent.Title,
+                Description = newEvent.Description,
+                Place = place,
+                CreatedByUserId = _context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier),
+                DateCreated = DateTime.Now,
+                StartDateTime = newEvent.StartDateTime,
+                EndDateTime = newEvent.EndDateTime,
+                EntranceFee = newEvent.EntranceFee,
+                Url = newEvent.Url
+            };
         // Insert event
+        await _db.InsertEvent(dbEvent);
     }
     protected override async Task OnInitializedAsync()
     {
-        newEvent = new EventUIModel();
+        newEvent = new EventUIModel
+            {
+                StartDateTime = DateTime.Today,
+                EndDateTime = DateTime.Today,
+            };
         // Get all places available from the db
         placesAvailable = await _db.GetAllPlaces();
-        // Populate placesAvailable
-
     }
 }
