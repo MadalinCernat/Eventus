@@ -1,5 +1,6 @@
 ﻿@page "/createevent"
 @using System.Security.Claims
+@using EventusUI.Components
 @inject ISqlCrud _db;
 @inject IHttpContextAccessor _context
 
@@ -16,44 +17,50 @@
                 <InputText id="title" @bind-Value="newEvent.Title" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="description">Description</label>
                 <InputText id="description" @bind-Value="newEvent.Description" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="startdatetime">Start Date & Time</label>
-                <InputDate id="startdatetime" @bind-Value="newEvent.StartDateTime" class="form-control" />
+                <div id="startdatetime"><DateTimePicker @bind-DateAndTime="newEvent.StartDateTime"/></div>
+                
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="enddatetime">End Date & Time</label>
-                <InputDate id="enddatetime" @bind-Value="newEvent.EndDateTime" class="form-control" />
+                <div id="enddatetime"><DateTimePicker @bind-DateAndTime="newEvent.EndDateTime"/></div>
             </div>
         </div>
-        <div class="col-md-6">
 
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="entrancefee">Entrance Fee</label>
                 <InputNumber id="entrancefee" @bind-Value="newEvent.EntranceFee" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="url">Url</label>
                 <InputText id="url" @bind-Value="newEvent.Url" class="form-control" />
             </div>
 
             <!-- Dropdown for selecting place -->
             <div class="form-group mt-3">
-                <select @bind="newEvent.PlaceId">
+                <select @bind="newEvent.PlaceId" class="rounded p-1">
                     <option value=0 disabled selected hidden>
-                        [Select Place]
+                        Select Place
                     </option>
                     @foreach (var place in placesAvailable)
                     {
                         <option value="@place.Id">@place.Name</option>
                     }
                 </select>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="allowrequests">Allow Requests</label>
+                <InputCheckbox id="allowrequests" @bind-Value="newEvent.AllowRequests"/>
             </div>
 
             <div class="form-group mt-3 text-center">
@@ -81,7 +88,9 @@
                 StartDateTime = newEvent.StartDateTime,
                 EndDateTime = newEvent.EndDateTime,
                 EntranceFee = newEvent.EntranceFee,
-                Url = newEvent.Url
+                Url = newEvent.Url,
+                AllowRequests = newEvent.AllowRequests,
+                IsActive = true
             };
         // Insert event
         await _db.InsertEvent(dbEvent);
