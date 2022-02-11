@@ -18,42 +18,32 @@ namespace DataAccessLibrary
         {
             _db = db;
         }
-        public Task<List<EventModel>> GetAllEvents()
+        #region Event CRUD
+        public async Task<List<EventModel>> GetAllEvents()
         {
-            return _db.LoadData<EventModel, dynamic>("dbo.spEvent_GetAll", new { }, true);
-        }
-        public async Task<PlaceModel> GetPlaceById(int id)
-        {
-            string sql = $"dbo.spPlace_GetById";
-
-            var parameters = new DynamicParameters();
-            parameters.Add("Id", id);
-
+            string sql = "dbo.spEvent_GetAll";
             using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
             {
-                return (await conn.QueryAsync<PlaceModel, CityModel, PlaceModel>(
+                return (await conn.QueryAsync<EventModel, PlaceModel, CityModel, EventModel>(
                     sql,
-                    (place, city) => { place.City = city; return place; },
-                    parameters,
-                    splitOn: "CityId",
-                    commandType: CommandType.StoredProcedure
-                    )).FirstOrDefault();
-            }
-        }
-        public async Task<List<PlaceModel>> GetAllPlaces()
-        {
-
-            string sql = "dbo.spPlace_GetAll";
-            using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
-            {
-                return (await conn.QueryAsync<PlaceModel, CityModel, PlaceModel>(
-                    sql,
-                    (place, city) => { place.City = city; return place; },
-                    splitOn: "CityId",
+                    (ev, place, city) => { place.City = city; ev.Place = place; return ev; },
+                    splitOn: "PlaceId,CityId",
                     commandType: CommandType.StoredProcedure)).ToList();
             }
         }
-
+        public async Task<EventModel> GetEventById(int id)
+        {
+            string sql = "dbo.spEvent_GetById";
+            using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
+            {
+                return (await conn.QueryAsync<EventModel, PlaceModel, CityModel, EventModel>(
+                    sql,
+                    (ev, place, city) => { place.City = city; ev.Place = place; return ev; },
+                    splitOn: "PlaceId,CityId",
+                    commandType: CommandType.StoredProcedure)).SingleOrDefault();
+            }
+        }
+        
         public async Task InsertEvent(EventModel model)
         {
             string sql = "dbo.spEvent_Insert";
@@ -74,5 +64,81 @@ namespace DataAccessLibrary
 
             await _db.SaveData(sql, p, true);
         }
+        #endregion
+
+        #region Place CRUD
+        public async Task<List<PlaceModel>> GetAllPlaces()
+        {
+
+            string sql = "dbo.spPlace_GetAll";
+            using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
+            {
+                return (await conn.QueryAsync<PlaceModel, CityModel, PlaceModel>(
+                    sql,
+                    (place, city) => { place.City = city; return place; },
+                    splitOn: "CityId",
+                    commandType: CommandType.StoredProcedure)).ToList();
+            }
+        }
+        public async Task<PlaceModel> GetPlaceById(int id)
+        {
+            string sql = $"dbo.spPlace_GetById";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("Id", id);
+
+            using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
+            {
+                return (await conn.QueryAsync<PlaceModel, CityModel, PlaceModel>(
+                    sql,
+                    (place, city) => { place.City = city; return place; },
+                    parameters,
+                    splitOn: "CityId",
+                    commandType: CommandType.StoredProcedure
+                    )).FirstOrDefault();
+            }
+        }
+
+        public async Task InsertPlace(PlaceModel model)
+        {
+            string sql = "dbo.spPlace_Insert";
+            var p = new
+            {
+                Name = model.Name,
+                CityId = model.City.Id
+            };
+
+            await _db.SaveData(sql, p, true);
+        }
+
+        #endregion
+
+        #region City CRUD
+        public async Task<List<CityModel>> GetAllCities()
+        {
+            var sql = "dbo.spCity_GetAll";
+
+            return await _db.LoadData<CityModel, dynamic>(sql, new { }, true);
+        }
+
+        public async Task<CityModel> GetCityById(int id)
+        {
+            var sql = "dbo.spCity_GetById";
+
+            return (await _db.LoadData<CityModel, dynamic>(sql, new { Id = id }, true)).SingleOrDefault() ;
+        }
+
+        public async Task InsertCity(CityModel model)
+        {
+            var sql = "dbo.spCity_Insert";
+
+            var p = new
+            {
+                Name = model.Name
+            };
+
+            await _db.SaveData(sql, p, true);
+        }
+        #endregion
     }
 }
