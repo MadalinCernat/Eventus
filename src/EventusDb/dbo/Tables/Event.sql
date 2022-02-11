@@ -9,8 +9,7 @@
     [EntranceFee] MONEY NULL, 
     [CreatedByUserId] NVARCHAR(450) NOT NULL, 
     [DateCreated] DATETIME2 NOT NULL, 
-    [IsActive] BIT NOT NULL DEFAULT 1, 
-    [IsOver] BIT NOT NULL DEFAULT 0, 
+    [IsActive] BIT NOT NULL DEFAULT 1,
     [Url] NVARCHAR(1000) NULL, 
     [AllowRequests] BIT NOT NULL DEFAULT 1, 
     CONSTRAINT [FK_Event_Place] FOREIGN KEY (PlaceId) REFERENCES [dbo].[Place](Id)
