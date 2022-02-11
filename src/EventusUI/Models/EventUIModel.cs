@@ -12,7 +12,6 @@ namespace EventusUI.Models
         [Required]
         [Range(1, double.MaxValue, ErrorMessage = "Please choose a place for your event.")]
         public int PlaceId { get; set; }
-        public string PlaceName { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -23,14 +22,12 @@ namespace EventusUI.Models
         public DateTime EndDateTime { get; set; }
 
         [Required]
+        [DataType(DataType.Currency)]
         public decimal EntranceFee { get; set; }
-        public string CreatedByUserId { get; set; }
-
-        public DateTime DateCreated { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsOver { get; set; }
 
         [Url]
         public string Url { get; set; }
+
+        public bool AllowRequests { get; set; } = false;
     }
 }
