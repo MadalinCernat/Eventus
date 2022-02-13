@@ -3,6 +3,7 @@
 @using EventusUI.Components
 @inject ISqlCrud _db;
 @inject IHttpContextAccessor _context
+@inject NavigationManager NavigationManager
 
 <h3 class="text-center">Create Event</h3>
 <hr class="mb-5"/>
@@ -94,6 +95,7 @@
             };
         // Insert event
         await _db.InsertEvent(dbEvent);
+        NavigationManager.NavigateTo("");
     }
     protected override async Task OnInitializedAsync()
     {
