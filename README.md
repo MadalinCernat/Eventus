@@ -1,7 +1,7 @@
 # Eventus
 This is a Blazor Server web application connected to a MSSQL database, built as part of Tim Corey's C# Challenge.
-It helps you track your events, for example weddings, birthday parties and concerts.
-__Progress:__ 10%
+It helps you to online organize your events, for example weddings, birthday parties and concerts.
+__Progress:__ 40%
 
 ## Functionalities:
 ### Minimum:
