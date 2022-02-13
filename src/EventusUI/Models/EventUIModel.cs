@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EventusUI.ValidationAttributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace EventusUI.Models
 {
@@ -15,10 +16,12 @@ namespace EventusUI.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [FromNow("Start Date Time must be past now.")]
         public DateTime StartDateTime { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
+        [FromNow("End Date Time must be past now.")]
         public DateTime EndDateTime { get; set; }
 
         [Required]
