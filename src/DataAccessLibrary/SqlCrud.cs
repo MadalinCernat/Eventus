@@ -39,9 +39,27 @@ namespace DataAccessLibrary
                 return (await conn.QueryAsync<EventModel, PlaceModel, CityModel, EventModel>(
                     sql,
                     (ev, place, city) => { place.City = city; ev.Place = place; return ev; },
+                    new { Id = id },
                     splitOn: "PlaceId,CityId",
                     commandType: CommandType.StoredProcedure)).SingleOrDefault();
             }
+        }
+
+        public async Task<List<EventModel>> GetEventsByUserId(string userId)
+        {
+            var sql = "dbo.spEvent_GetAllCreatedByUserId";
+            using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
+            {
+                var output =  (await conn.QueryAsync<EventModel, PlaceModel, CityModel, EventModel>(
+                    sql,
+                    (ev, place, city) => { place.City = city; ev.Place = place; return ev; },
+                    param: new { CreatedByUserId = userId },
+                    splitOn: "PlaceId,CityId",
+                    commandType: CommandType.StoredProcedure)).ToList();
+
+                return output;
+            }
+
         }
         
         public async Task InsertEvent(EventModel model)
