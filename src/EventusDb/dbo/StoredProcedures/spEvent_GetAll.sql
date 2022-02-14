@@ -5,7 +5,6 @@ begin
 	select [e].[Id]
 		, [e].[Title]
 		, [e].[Description]
-		, [e].[PlaceId]
 		, [e].[StartDateTime]
 		, [e].[EndDateTime]
 		, [e].[EntranceFee]
@@ -20,5 +19,5 @@ begin
 		, [c].[Name]
 	from [dbo].[Event] e
 	inner join [dbo].[Place] p on p.Id = e.PlaceId
-	inner join [dbo].[City] c on p.CityId = c.Id
+	inner join [dbo].[City] c on c.Id = p.CityId
 end
