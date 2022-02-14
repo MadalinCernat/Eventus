@@ -1,0 +1,31 @@
+﻿@page "/yourevents"
+@using System.Security.Claims
+@inject IHttpContextAccessor _context
+@inject ISqlCrud _db;
+
+@if(_events is not null)
+{
+    @foreach(var e in _events)
+    {
+    <div class="card">
+        <div class="card-title">@e.Title</div>
+        <div class="card-body">
+            @e.Description
+        </div>
+        <div class="card-footer">
+            @e.Place.Name
+        </div>
+    </div>
+    }
+}
+
+@code {
+    private List<EventModel> _events;
+    protected override async Task OnInitializedAsync()
+    {
+        string userId = _context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        _events = await _db.GetEventsByUserId(userId);
+
+    }
+}
