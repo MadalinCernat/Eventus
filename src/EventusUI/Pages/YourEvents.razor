@@ -2,8 +2,13 @@
 @using System.Security.Claims
 @inject IHttpContextAccessor _context
 @inject ISqlCrud _db;
+@inject NavigationManager _navigationManager
 
-@if(_events is not null)
+@if(_events is null)
+{
+    <h1>Loading...</h1>
+}
+else
 {
     @foreach(var e in _events)
     {
@@ -13,7 +18,7 @@
             @e.Description
         </div>
         <div class="card-footer">
-            @e.Place.Name
+            <button @onclick="() => NavigateToEvent(e.Id)">Details</button>
         </div>
     </div>
     }
@@ -21,6 +26,10 @@
 
 @code {
     private List<EventModel> _events;
+    private void NavigateToEvent(int id)
+    {
+        _navigationManager.NavigateTo($"/event/{id}");
+    }
     protected override async Task OnInitializedAsync()
     {
         string userId = _context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);

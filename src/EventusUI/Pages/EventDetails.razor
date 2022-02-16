@@ -1,6 +1,25 @@
-﻿@page "/event/{EventId}"
+﻿@page "/event/{Id}"
+@inject ISqlCrud _db
+
+@if(_event is null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
+    <h1>@_event.Title</h1>
+    <h2>@_event.Place.Name</h2>
+    <h3>@_event.StartDateTime - @_event.EndDateTime</h3>
+}
 
 @code {
     [Parameter]
-    public int EventId { get; set; }
+    public string Id { get; set; }
+
+    private EventModel _event;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _event = await _db.GetEventById(Convert.ToInt32(Id));
+    }
 }
