@@ -158,5 +158,42 @@ namespace DataAccessLibrary
             await _db.SaveData(sql, p, true);
         }
         #endregion
+
+        #region
+        public async Task<List<InvitationModel>> GetAllInvitationsSentByUser(string userId)
+        {
+            var sql = "dbo.spInvitation_GetAllSentByUserId";
+
+            var output = await _db.LoadData<InvitationModel, dynamic>(sql, new { SentByUserId = userId }, true);
+
+            return output.ToList();
+        }
+
+        public async Task<List<InvitationModel>> GetAllInvitationsSentToUser(string userId)
+        {
+            var sql = "dbo.spInvitation_GetAllSentToUserId";
+
+            var output = await _db.LoadData<InvitationModel, dynamic>(sql, new { SentToUserId = userId }, true);
+
+            return output.ToList();
+        }
+        public async Task InsertInvitation(InvitationModel model)
+        {
+            var sql = "dbo.spInvitation_Insert";
+
+            var p = new
+            {
+                model.SentByUserId, 
+                model.SentToUserId,
+                EventId = model.Event.Id,
+                model.DateSent,
+                model.Message
+            };
+
+            await _db.SaveData(sql, p, true);
+        }
+
+
+        #endregion
     }
 }
