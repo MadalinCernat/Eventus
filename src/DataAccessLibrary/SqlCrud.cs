@@ -159,7 +159,7 @@ namespace DataAccessLibrary
         }
         #endregion
 
-        #region
+        #region Invitation CRUD
         public async Task<List<InvitationModel>> GetAllInvitationsSentByUser(string userId)
         {
             var sql = "dbo.spInvitation_GetAllSentByUserId";
@@ -193,6 +193,48 @@ namespace DataAccessLibrary
             await _db.SaveData(sql, p, true);
         }
 
+
+        #endregion
+
+        #region Request CRUD
+
+        public async Task<List<RequestModel>> GetAllRequestsForEventId(int eventId)
+        {
+            var sql = "dbo.spRequest_GetRequestsForEventId";
+            using(IDbConnection conn = new SqlConnection(_db.ConnectionString))
+            {
+                return (await conn.QueryAsync<RequestModel, EventModel, PlaceModel, CityModel, RequestModel>(sql,
+                    (req, ev, pl, c) => { pl.City = c; ev.Place = pl; req.Event = ev; return req; },
+                    new { EventId = eventId }, splitOn: "EventId,PlaceId,CityId",
+                    commandType:CommandType.StoredProcedure)).ToList();
+            }
+        }
+
+        public async Task<List<RequestModel>> GetAllRequestsSentByUserId(string userId)
+        {
+            var sql = "dbo.spRequest_GetRequestsSentByUserId";
+            using (IDbConnection conn = new SqlConnection(_db.ConnectionString))
+            {
+                return (await conn.QueryAsync<RequestModel, EventModel, PlaceModel, CityModel, RequestModel>(sql,
+                    (req, ev, pl, c) => { pl.City = c; ev.Place = pl; req.Event = ev; return req; },
+                    new { SentByUserId = userId }, splitOn: "EventId,PlaceId,CityId",
+                    commandType: CommandType.StoredProcedure)).ToList();
+            }
+        }
+
+        public async Task InsertRequest(RequestModel model)
+        {
+            string sql = "dbo.spRequest_Insert";
+            var p = new
+            {
+                SentByUserId = model.SentByUserId,
+                ForEventId = model.Event.Id,
+                RequestMessage = model.RequestMessage,
+                Date = model.Date
+            };
+
+            await _db.SaveData(sql, p, true);
+        }
 
         #endregion
     }
