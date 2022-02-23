@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spInvitation_GetAllSentToUserId]
-	@sentToUserId nvarchar(450)
+﻿CREATE PROCEDURE [dbo].[spInvitation_GetById]
+	@Id int
 AS
 begin
 	set nocount on;
@@ -8,8 +8,8 @@ begin
 		, [i].[SentByUserId]
 		, [i].[SentToUserId]
 		, [i].[Accepted]
-		, [i].[Message]
 		, [i].[DateSent]
+		, [i].[Message]
 		, [i].[IsActive]
 		, [e].[Id] as 'EventId'
 		, [e].[Title]
@@ -31,5 +31,5 @@ begin
 	inner join [dbo].[Event] e on e.Id = i.EventId
 	inner join [dbo].[Place] p on p.Id = e.PlaceId
 	inner join [dbo].[City] c on c.Id = p.CityId
-	where i.SentToUserId = @sentToUserId;
+	where i.Id = @Id
 end

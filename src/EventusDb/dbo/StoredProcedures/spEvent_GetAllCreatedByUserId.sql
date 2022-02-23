@@ -5,7 +5,7 @@ AS
 begin
 	set nocount on;
 
-	select [e].[Id]
+	select [e].[Id] as 'EventId'
 		, [e].[Title]
 		, [e].[Description]
 		, [e].[StartDateTime]

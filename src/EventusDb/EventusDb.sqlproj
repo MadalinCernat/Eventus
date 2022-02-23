@@ -91,6 +91,9 @@
     <Build Include="dbo\StoredProcedures\spPlace_GetById.sql" />
     <Build Include="dbo\StoredProcedures\spCity_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\spCity_GetById.sql" />
+    <Build Include="dbo\StoredProcedures\spInvitation_Accept.sql" />
+    <Build Include="dbo\StoredProcedures\spInvitation_Reject.sql" />
+    <Build Include="dbo\StoredProcedures\spInvitation_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />
