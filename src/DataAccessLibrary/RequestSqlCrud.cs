@@ -32,7 +32,7 @@ namespace DataAccessLibrary
             var p = new
             {
                 SentByUserId = model.SentByUserId,
-                ForEventId = model.Event.Id,
+                ForEventId = model.Event.EventId,
                 RequestMessage = model.RequestMessage,
                 Date = model.Date
             };
