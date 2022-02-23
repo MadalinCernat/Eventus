@@ -1,0 +1,44 @@
+﻿@page "/yourinvitations"
+@using System.Security.Claims
+@inject IHttpContextAccessor _context
+@inject ISqlCrud _db;
+@inject NavigationManager _navigationManager
+
+<h3>Your Invitations</h3>
+@if(_invitations is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    @foreach(var inv in _invitations)
+    {
+        <h4>You have been invited to <b> @inv.Event.Title </b>!</h4>
+        <p>Message: @inv.Message</p>
+        <h6>Date: @inv.Event.StartDateTime - @inv.Event.EndDateTime</h6>
+        <button class="btn btn-success" @onclick="() => AcceptInvitation(inv.Id)">Accept</button>
+        /* @onclick="() => DenyInvitation(inv.Id)" */
+        <button class="btn btn-warning" >Deny</button>
+    }
+}
+
+
+@code {
+    private List<InvitationModel> _invitations;
+
+    protected async override Task OnInitializedAsync()
+    {
+        _invitations = await _db.GetAllInvitationsSentToUser(_context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+    }
+
+    private async void AcceptInvitation(int id)
+    {
+        await _db.AcceptInvitation(id);
+    }
+
+    private async void DenyInvitation(int id)
+    {
+        // await _db.DenyInvitation(id);
+    }
+
+}
