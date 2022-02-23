@@ -1,12 +1,7 @@
-﻿using Dapper;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLibrary
 {
@@ -18,32 +13,25 @@ namespace DataAccessLibrary
         {
             ConnectionString = config.GetConnectionString("Default");
         }
+
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters, bool isStoredProcedure = false)
         {
             var output = new List<T>();
-            CommandType commandType = CommandType.Text;
-            if (isStoredProcedure)
-            {
-                commandType = CommandType.StoredProcedure;
-            }
+            CommandType commandType = isStoredProcedure
+                ? CommandType.StoredProcedure
+                : CommandType.Text;
             using (IDbConnection conn = new SqlConnection(ConnectionString))
-            {
-                output = (await conn.QueryAsync<T>(sql, parameters, commandType: commandType)).ToList();
-            }
+            output = (await conn.QueryAsync<T>(sql, parameters, commandType: commandType)).ToList();
             return output;
         }
 
         public async Task SaveData<T>(string sql, T parameters, bool isStoredProcedure = false)
         {
-            CommandType commandType = CommandType.Text;
-            if (isStoredProcedure)
-            {
-                commandType = CommandType.StoredProcedure;
-            }
-            using (IDbConnection conn = new SqlConnection(ConnectionString))
-            {
-                await conn.ExecuteAsync(sql, parameters, commandType: commandType);
-            }
+            CommandType commandType = isStoredProcedure
+                ? CommandType.StoredProcedure
+                : CommandType.Text;
+            using IDbConnection conn = new SqlConnection(ConnectionString);
+            await conn.ExecuteAsync(sql, parameters, commandType: commandType);
         }
     }
 }
