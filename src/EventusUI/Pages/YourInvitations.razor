@@ -13,12 +13,14 @@ else
 {
     @foreach(var inv in _invitations)
     {
-        <h4>You have been invited to <b> @inv.Event.Title </b>!</h4>
-        <p>Message: @inv.Message</p>
-        <h6>Date: @inv.Event.StartDateTime - @inv.Event.EndDateTime</h6>
-        <button class="btn btn-success" @onclick="() => AcceptInvitation(inv.Id)">Accept</button>
-        /* @onclick="() => DenyInvitation(inv.Id)" */
-        <button class="btn btn-warning" >Deny</button>
+        @if(inv.IsActive == true && inv.Responded == false && DateTime.Now < inv.Event.EndDateTime)
+        {
+            <h4>You have been invited to <b> @inv.Event.Title </b>!</h4>
+            <p>Message: @inv.Message</p>
+            <h6>Date: @inv.Event.StartDateTime - @inv.Event.EndDateTime</h6>
+            <button class="btn btn-success" @onclick="() => AcceptInvitation(inv.Id)">Accept</button>
+            <button class="btn btn-warning" @onclick="() => DenyInvitation(inv.Id)">Deny</button>
+        }
     }
 }
 
@@ -33,12 +35,14 @@ else
 
     private async void AcceptInvitation(int id)
     {
-        await _db.AcceptInvitation(id);
+        await _db.RespondToInvitation(id);
+        _navigationManager.NavigateTo("");
     }
 
     private async void DenyInvitation(int id)
     {
-        // await _db.DenyInvitation(id);
+         await _db.RespondToInvitation(id, false);
+         _navigationManager.NavigateTo("");
     }
 
 }
