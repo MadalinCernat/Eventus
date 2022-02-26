@@ -12,7 +12,7 @@ namespace DataAccessLibrary
             using IDbConnection conn = new SqlConnection(_db.ConnectionString);
             return (await conn.QueryAsync<RequestModel, EventModel, PlaceModel, CityModel, RequestModel>(sql,
                 (req, ev, pl, c) => { pl.City = c; ev.Place = pl; req.Event = ev; return req; },
-                param ?? "",
+                param ?? null,
                 splitOn: "EventId,PlaceId,CityId",
                 commandType: CommandType.StoredProcedure)).ToList();
         }

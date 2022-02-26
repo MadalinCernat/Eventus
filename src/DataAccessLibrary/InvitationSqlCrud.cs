@@ -13,7 +13,7 @@ namespace DataAccessLibrary
             return (await conn.QueryAsync<InvitationModel, EventModel, PlaceModel, CityModel, InvitationModel>(
                 sql,
                 (inv, ev, place, city) => { place.City = city; ev.Place = place; inv.Event = ev; return inv; },
-                param: param ?? "",
+                param: param ?? null,
                 splitOn: "EventId,PlaceId,CityId",
                 commandType: CommandType.StoredProcedure)).ToList();
         }
