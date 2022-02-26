@@ -21,5 +21,6 @@ namespace DataAccessLibrary
         Task InsertInvitation(InvitationModel model);
         Task InsertPlace(PlaceModel model);
         Task InsertRequest(RequestModel model);
+        Task<List<EventModel>> GetAllEventsEntered(string userId);
     }
 }

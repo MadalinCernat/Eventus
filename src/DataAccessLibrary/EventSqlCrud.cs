@@ -49,5 +49,11 @@ namespace DataAccessLibrary
             };
             await _db.SaveData("dbo.spEvent_Insert", p, true);
         }
+
+        public async Task<List<EventModel>> GetAllEventsEntered(string userId)
+        {
+            return await ExecuteEventCrudSql("dbo.spEventUser_GetAllEntered", new { UserId = userId });
+        }
+
     }
 }

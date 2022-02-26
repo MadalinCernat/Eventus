@@ -94,6 +94,7 @@
     <Build Include="dbo\StoredProcedures\spInvitation_Accept.sql" />
     <Build Include="dbo\StoredProcedures\spInvitation_Reject.sql" />
     <Build Include="dbo\StoredProcedures\spInvitation_GetById.sql" />
+    <Build Include="dbo\StoredProcedures\spEventUser_GetAllEntered.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EventusDb.refactorlog" />
