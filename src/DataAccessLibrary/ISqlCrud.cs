@@ -4,7 +4,7 @@ namespace DataAccessLibrary
 {
     public interface ISqlCrud
     {
-        Task AcceptInvitation(int id);
+        Task RespondToInvitation(int id, bool accept = true);
         Task<List<CityModel>> GetAllCities();
         Task<List<EventModel>> GetAllEvents();
         Task<List<InvitationModel>> GetAllInvitationsSentByUser(string userId);

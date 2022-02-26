@@ -45,8 +45,18 @@ namespace DataAccessLibrary
             await _db.SaveData("dbo.spInvitation_Insert", p, true);
         }
 
-        public async Task AcceptInvitation(int id)
+        public async Task RespondToInvitation(int id, bool accept = true)
         {
+            string spName = "";
+            if(accept)
+            {
+                spName = "dbo.spInvitation_Accept";
+            }
+            else
+            {
+                spName = "dbo.spInvitation_Reject";
+            }
+
             using IDbConnection conn = new SqlConnection(_db.ConnectionString);
 
             conn.Open();
@@ -58,7 +68,7 @@ namespace DataAccessLibrary
                 var invitation = (await GetInvitationById(id)).First();
 
                 await conn.ExecuteAsync(
-                    "dbo.spInvitation_Accept",
+                    spName,
                     new { Id = id },
                     transaction: trans,
                     commandType: CommandType.StoredProcedure);
