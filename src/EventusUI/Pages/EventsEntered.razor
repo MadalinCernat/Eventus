@@ -10,7 +10,10 @@
 {
     @foreach(var ev in _events)
     {
-        <h2>@ev.Title</h2>
+        @if(DateTime.Now <= ev.EndDateTime)
+        {
+            <h2>@ev.Title</h2>
+        }
     }
 }
 
