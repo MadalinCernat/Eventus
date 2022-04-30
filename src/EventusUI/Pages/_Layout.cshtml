@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @namespace EventusUI.Pages
+@using BlazorAnimate;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
@@ -16,6 +17,10 @@
 <body>
     @RenderBody()
 
+@*    <footer class="footer">
+        &copy; Eventus 2022
+    </footer>
+*@
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
