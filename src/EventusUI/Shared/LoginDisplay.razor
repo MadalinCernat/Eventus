@@ -1,6 +1,6 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
+        <a href="Identity/Account/Manage">Profile</a>
         <form method="post" action="Identity/Account/LogOut">
             <button type="submit" class="nav-link btn btn-link">Log out</button>
         </form>
@@ -10,3 +10,19 @@
         <a href="Identity/Account/Login">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
+
+<style>
+    a, button{
+        color: inherit !important;
+        text-decoration: inherit !important;
+    }
+
+
+    a:hover{
+        color: #009688 !important;
+    }
+
+    button:hover{
+        color: #009688 !important;
+    }
+</style>
