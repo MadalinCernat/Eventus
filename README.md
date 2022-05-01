@@ -1,7 +1,10 @@
 # Eventus
 This is a Blazor Server web application built as part of Tim Corey's C# Challenge. At the moment it is using a MSSQL database.
-It helps you to online organize your events, for example weddings, birthday parties and concerts.
+It helps you to online organize your events, for example weddings, birthday parties and concerts.  
 __Progress:__ 50%
+
+![index-ss](https://i.ibb.co/6Rj2tBf/image-2022-05-01-204755145.png)
+
 
 # To do:
 - Finish all data access methods
