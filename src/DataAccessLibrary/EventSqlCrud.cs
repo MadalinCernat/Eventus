@@ -2,11 +2,13 @@
 using System.Data.SqlClient;
 using Dapper;
 using DataAccessLibrary.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DataAccessLibrary
 {
     public partial class SqlCrud
     {
+        private const string eventCacheKey = "events";
         private async Task<List<EventModel>> ExecuteEventCrudSql(string sql, object param = null)
         {
             using IDbConnection conn = new SqlConnection(_db.ConnectionString);
@@ -20,7 +22,15 @@ namespace DataAccessLibrary
 
         public async Task<List<EventModel>> GetAllEvents()
         {
-            return await ExecuteEventCrudSql("dbo.spEvent_GetAll");
+            var output = _cache.Get<List<EventModel>>(eventCacheKey);
+
+            if(output is null)
+            {
+                output = await ExecuteEventCrudSql("dbo.spEvent_GetAll");
+                _cache.Set(eventCacheKey, output, TimeSpan.FromMinutes(1));
+            }
+
+            return output;            
         }
         public async Task<EventModel> GetEventById(int id)
         {
