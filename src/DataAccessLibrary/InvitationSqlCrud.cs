@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DataAccessLibrary.Models;
+using Microsoft.Extensions.Caching.Memory;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -7,6 +8,7 @@ namespace DataAccessLibrary
 {
     public partial class SqlCrud
     {
+        private const string invitationsSentByUserCacheKey = "invitationsSentByUser";
         private async Task<List<InvitationModel>> ExecuteInvitationCrudSql(string sql, object param = null)
         {
             using IDbConnection conn = new SqlConnection(_db.ConnectionString);
@@ -19,12 +21,20 @@ namespace DataAccessLibrary
         }
         public async Task<List<InvitationModel>> GetAllInvitationsSentByUser(string userId)
         {
-            return (await ExecuteInvitationCrudSql("dbo.spInvitation_GetAllSentByUserId", new {SentByUserId = userId}))?.ToList();
+            var output = _cache.Get<List<InvitationModel>>(invitationsSentByUserCacheKey);
+
+            if(output is null)
+            {
+                output = await ExecuteInvitationCrudSql("dbo.spInvitation_GetAllSentByUserId", new { SentByUserId = userId });
+                _cache.Set(invitationsSentByUserCacheKey, output, TimeSpan.FromSeconds(30));
+            }
+
+            return output;
         }
 
         public async Task<List<InvitationModel>> GetAllInvitationsSentToUser(string userId)
         {
-            return (await ExecuteInvitationCrudSql("dbo.spInvitation_GetAllSentToUserId", new { SentToUserId = userId }))?.ToList();
+            return await ExecuteInvitationCrudSql("dbo.spInvitation_GetAllSentToUserId", new { SentToUserId = userId });
         }
 
         public async Task<List<InvitationModel>> GetInvitationById(int id)

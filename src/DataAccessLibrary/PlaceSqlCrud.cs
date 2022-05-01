@@ -2,11 +2,13 @@
 using System.Data.SqlClient;
 using Dapper;
 using DataAccessLibrary.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DataAccessLibrary
 {
     public partial class SqlCrud
     {
+        private const string placeCacheKey = "places";
         private async Task<List<PlaceModel>> ExecutePlaceCrudSql(string sql, object param = null)
         {
             using IDbConnection conn = new SqlConnection(_db.ConnectionString);
@@ -20,7 +22,15 @@ namespace DataAccessLibrary
 
         public async Task<List<PlaceModel>> GetAllPlaces()
         {
-            return await ExecutePlaceCrudSql("dbo.spPlace_GetAll");
+            var output = _cache.Get <List<PlaceModel>>(placeCacheKey);
+
+            if(output is null)
+            {
+                output = await ExecutePlaceCrudSql("dbo.spPlace_GetAll");
+                _cache.Set(placeCacheKey, output, TimeSpan.FromMinutes(1));
+            }
+
+            return output;
         }
 
         public async Task<PlaceModel> GetPlaceById(int id)

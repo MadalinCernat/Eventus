@@ -26,6 +26,7 @@ namespace EventusUI
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            builder.Services.AddMemoryCache();
             builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             builder.Services.AddTransient<ISqlCrud, SqlCrud>();
         }
