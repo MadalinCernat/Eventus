@@ -5,14 +5,15 @@
 @inject IHttpContextAccessor _context
 @inject NavigationManager NavigationManager
 
-<h3 class="text-center">Create Event</h3>
-<hr class="mb-5"/>
+<h2 class="text-center">Create Event</h2>
 
 <EditForm OnValidSubmit="InsertEvent" Model="@newEvent">
     <DataAnnotationsValidator />
     <ValidationSummary />
+
     <div class="row">
         <div class="col-md-6">
+
             <div class="form-group">
                 <label for="title">Title</label>
                 <InputText id="title" @bind-Value="newEvent.Title" class="form-control" />
@@ -20,23 +21,21 @@
 
             <div class="form-group mt-3">
                 <label for="description">Description</label>
-                <InputText id="description" @bind-Value="newEvent.Description" class="form-control" />
+                <InputTextArea id="description" @bind-Value="newEvent.Description" class="form-control" style="max-height: 15rem; min-height: 5rem;" />
             </div>
 
             <div class="form-group mt-3">
                 <label for="startdatetime">Start Date & Time</label>
-                <div id="startdatetime"><DateTimePicker @bind-DateAndTime="newEvent.StartDateTime"/></div>
-                
+                <div id="startdatetime"><DateTimePicker @bind-DateAndTime="newEvent.StartDateTime" /></div>
+
             </div>
 
             <div class="form-group mt-3">
                 <label for="enddatetime">End Date & Time</label>
-                <div id="enddatetime"><DateTimePicker @bind-DateAndTime="newEvent.EndDateTime"/></div>
+                <div id="enddatetime"><DateTimePicker @bind-DateAndTime="newEvent.EndDateTime" /></div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="entrancefee">Entrance Fee</label>
                 <InputNumber id="entrancefee" @bind-Value="newEvent.EntranceFee" class="form-control" />
             </div>
@@ -61,12 +60,16 @@
 
             <div class="form-group mt-3">
                 <label for="allowrequests">Allow Requests</label>
-                <InputCheckbox id="allowrequests" @bind-Value="newEvent.AllowRequests"/>
+                <InputCheckbox id="allowrequests" @bind-Value="newEvent.AllowRequests" />
             </div>
 
             <div class="form-group mt-3 text-center">
                 <button class="btn btn-outline-dark" type="submit">Submit</button>
             </div>
+        </div>
+
+        <div class="col-md-6">
+            <img class="img-fluid" src="/create-event.png" />
         </div>
     </div>
 </EditForm>
