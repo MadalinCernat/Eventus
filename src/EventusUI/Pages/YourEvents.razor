@@ -10,18 +10,37 @@
 }
 else
 {
-    @foreach(var e in _events)
-    {
-    <div class="card">
-        <div class="card-title">@e.Title</div>
-        <div class="card-body">
-            @e.Description
-        </div>
-        <div class="card-footer">
-            <button @onclick="() => NavigateToEvent(e.EventId)">Details</button>
+    <h2 class="text-center">Your Events</h2>
+
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            @foreach(var e in _events)
+            {
+                <div class="card mt-3">
+                    <div class="card-title text-center pt-2">
+                        @e.Title
+                    </div>
+                    <div class="card-body">
+                        @if(e.Description is not null)
+                        {
+                            if(e.Description.Length > 60)
+                            {
+                                <p>@e.Description.Substring(0, 60)...</p>
+                            }
+                            else
+                            {
+                                <p>@e.Description</p>
+                            }
+                        }
+                    </div>
+                    <div class="card-footer text-center">
+                        <button @onclick="() => NavigateToEvent(e.EventId)" class="btn btn-outline-dark">Details</button>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-    }
 }
 
 @code {
@@ -38,3 +57,17 @@ else
 
     }
 }
+
+<style>
+    .card{
+        height: 12rem;
+        background-color: #26A69A;
+        border: 1px solid #004D40;
+        margin-bottom: 2rem;
+    }
+
+    .card-body{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+</style>
